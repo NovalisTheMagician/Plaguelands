@@ -1,7 +1,13 @@
-#include <stdio.h>
+#include <iostream>
+#include <SDL.h>
 
-int main()
+int main(int, char**)
 {
-	printf("Hello World!\n");
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		std::cout << "SDL Error" << SDL_GetError() << std::endl;
+	}
+	SDL_Quit();
+	
 	return 0;
 }
