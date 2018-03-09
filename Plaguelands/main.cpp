@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 
 	glewExperimental = true;
 	glewInit();
+	glGetError();
 
 	SDL_Event ev;
 	while (true)
