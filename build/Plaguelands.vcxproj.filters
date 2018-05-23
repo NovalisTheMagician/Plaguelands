@@ -24,5 +24,13 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\miniz.c">
+      <Filter>miniz</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\miniz.h">
+      <Filter>miniz</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
