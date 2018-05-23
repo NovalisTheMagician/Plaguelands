@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <fstream>
 
+#include <Windows.h>
+
 namespace Plague
 {
 	using std::string;
@@ -27,25 +29,27 @@ namespace Plague
 		}
 
 		zipArchives.clear();
-
 	}
 
 	void Filesystem::AddModDirectory(const string &modName)
 	{
-		for (auto & file : fs::directory_iterator(rootFolder + modName + "\\"))
+		string filePath = rootFolder + modName + "\\";
+		for (auto & file : fs::directory_iterator(filePath))
 		{
 			if (file.is_regular_file())
 			{
-				if (!isDebug && file.path().extension().string().compare(".zip"))
+				string fileName = file.path().filename().string();
+				string extension = file.path().extension().string();
+				string relFilePath = file.path().relative_path().string();
+
+				if (!isDebug && extension.compare(".zip") == 0)
 				{
-					LoadZip(file.path().string(), modName);
+					LoadZip(relFilePath, modName);
 				}
 				else if(isDebug)
 				{
-					string fileName = file.path().filename().string();
 					string virtualFilePath = "/" + fileName;
-					string filePath = file.path().relative_path().string();
-					index[virtualFilePath] = filePath;
+					index[virtualFilePath] = relFilePath;
 				}
 			}
 			else if (isDebug && file.is_directory())
@@ -60,17 +64,18 @@ namespace Plague
 	{
 		for (auto & file : fs::directory_iterator(path))
 		{
+			string filePath = file.path().relative_path().string();
+			string fileName = file.path().filename().string();
+
 			if (file.is_regular_file())
 			{
-				string fileName = file.path().filename().string();
 				string virtualFilePath = "/" + virtPath + "/" + fileName;
-				string filePath = file.path().relative_path().string();
 				index[virtualFilePath] = filePath;
 			}
 			else if (file.is_directory())
 			{
-				string virtPath = virtPath + "/" + file.path().filename().string();
-				LoadLoose(file.path().relative_path().string(), virtPath);
+				string newVirtPath = virtPath + "/" + fileName;
+				LoadLoose(filePath, newVirtPath);
 			}
 		}
 	}

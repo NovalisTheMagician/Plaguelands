@@ -7,9 +7,6 @@
 
 #include <GL\glew.h>
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <gli\texture.hpp>
-
 namespace Plague
 {
 	class Texture
@@ -24,9 +21,6 @@ namespace Plague
 		GLuint GetTextureID();
 
 		void Bind(GLenum textureUnit);
-
-	private:
-		bool Load(gli::texture texture);
 
 	private:
 		GLuint textureID;

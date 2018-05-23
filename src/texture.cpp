@@ -1,8 +1,5 @@
 #include "texture.hpp"
 
-#include <gli\load.hpp>
-#include <gli\gl.hpp>
-
 namespace Plague
 {
 	using std::string;
@@ -26,50 +23,12 @@ namespace Plague
 
 	bool Texture::Load(const string &path)
 	{
-		gli::texture texture(gli::load(path));
-		if (texture.empty())
-			return false;
-
-		return Load(texture);
+		return false;
 	}
 
 	bool Texture::Load(const char *data, size_t size)
 	{
-		gli::texture texture(gli::load(data, size));
-		if (texture.empty())
-			return false;
-
-		return Load(texture);
-	}
-
-	bool Texture::Load(gli::texture texture)
-	{
-		gli::gl gl(gli::gl::PROFILE_KTX);
-		gli::gl::format const format = gl.translate(texture.format(), texture.swizzles());
-		GLenum target = gl.translate(texture.target());
-		if (target != gli::TARGET_2D)
-			return false;
-
-		glGenTextures(1, &textureID);
-		glBindTexture(target, textureID);
-		glTexParameteri(target, GL_TEXTURE_BASE_LEVEL, 0);
-		glTexParameteri(target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(texture.levels() - 1));
-		glTexParameteriv(target, GL_TEXTURE_SWIZZLE_RGBA, &format.Swizzles[0]);
-		glTexStorage2D(target, static_cast<GLint>(texture.levels()), format.Internal, texture.extent(0).x, texture.extent(0).y);
-		for (size_t level = 0; level < texture.levels(); ++level)
-		{
-			glm::tvec3<GLsizei> extent(texture.extent(level));
-			if (gli::is_compressed(texture.format))
-				glCompressedTexSubImage2D(
-					target, static_cast<GLint>(level), 0, 0, extent.x, extent.y,
-					format.External, static_cast<GLsizei>(texture.size(level)), texture.data(0, 0, level));
-			else
-				glTexSubImage2D(
-					target, static_cast<GLint>(level), 0, 0, extent.x, extent.y,
-					format.External, format.Type, texture.data(0, 0, level));
-		}
-
-		return true;
+		return false;
 	}
 
 	GLuint Texture::GetTextureID()

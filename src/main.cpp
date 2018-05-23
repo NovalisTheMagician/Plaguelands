@@ -1,14 +1,14 @@
 #include "plague.hpp"
 
+#define GLEW_STATIC
 #include <GL/glew.h>
-
 #include <SDL.h>
 
 #include "texture.hpp"
 #include "filesystem.hpp"
 
 Plague::Texture diffuse;
-Plague::Filesystem filesystem("..\\..\\", true);
+Plague::Filesystem filesystem("..\\..\\", false);
 
 void Init()
 {
