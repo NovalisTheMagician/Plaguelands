@@ -5,12 +5,15 @@
 #include <SDL.h>
 
 #include "texture.hpp"
+#include "filesystem.hpp"
 
 Plague::Texture diffuse;
+Plague::Filesystem filesystem("..\\..\\", true);
 
 void Init()
 {
 	diffuse.Load("");
+	filesystem.AddModDirectory("Assets");
 }
 
 void Update()
