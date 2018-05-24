@@ -7,11 +7,7 @@
 #include "texture.hpp"
 #include "filesystem.hpp"
 
-#include <vector>
-#include <string>
 #include <Windows.h>
-
-#include <zip.h>
 
 Plague::Texture diffuse;
 Plague::Filesystem filesystem("..\\..\\", true);

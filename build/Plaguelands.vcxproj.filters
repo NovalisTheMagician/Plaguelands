@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="miniz">
-      <UniqueIdentifier>{6658806a-3048-49ce-b5e4-642b2ce2210d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader">
       <UniqueIdentifier>{9299afb8-5de9-4979-92de-225e31b06d33}</UniqueIdentifier>
     </Filter>
@@ -26,9 +23,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\miniz.c">
-      <Filter>miniz</Filter>
     </ClCompile>
     <ClCompile Include="..\src\texture.cpp">
       <Filter>Source Files</Filter>
@@ -41,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\miniz.h">
-      <Filter>miniz</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\texture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

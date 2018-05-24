@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#include <vector>
+#include <string>
+#include <map>
+
 typedef uint64_t ulong;
 typedef uint32_t uint;
 typedef uint16_t ushort;

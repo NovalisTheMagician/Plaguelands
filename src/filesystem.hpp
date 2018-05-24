@@ -1,10 +1,6 @@
 #ifndef FILESYSTEM_HPP_
 #define FILESYSTEM_HPP_
 
-#include <string>
-#include <vector>
-#include <map>
-
 #include "plague.hpp"
 
 #include <zip.h>

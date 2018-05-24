@@ -21,13 +21,11 @@
   <ItemGroup>
     <ClCompile Include="..\src\filesystem.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\miniz.c" />
     <ClCompile Include="..\src\stb_vorbis.c" />
     <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\filesystem.hpp" />
-    <ClInclude Include="..\src\miniz.h" />
     <ClInclude Include="..\src\plague.hpp" />
     <ClInclude Include="..\src\stb_image.h" />
     <ClInclude Include="..\src\stb_vorbis.h" />

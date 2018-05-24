@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <fstream>
 
-#include <Windows.h>
+#include <system_error>
 
 namespace Plague
 {
@@ -11,6 +11,7 @@ namespace Plague
 	using std::vector;
 	using std::map;
 	using std::fstream;
+	using std::error_code;
 
 	namespace fs = std::filesystem;
 
@@ -32,8 +33,10 @@ namespace Plague
 
 	void Filesystem::AddModDirectory(const string &modName)
 	{
+		error_code ec;
+
 		string filePath = rootFolder + modName + "\\";
-		for (auto & file : fs::directory_iterator(filePath))
+		for (auto & file : fs::directory_iterator(filePath, ec))
 		{
 			if (file.is_regular_file())
 			{
@@ -56,6 +59,11 @@ namespace Plague
 				string virtPath = file.path().filename().string();
 				LoadLoose(file.path().relative_path().string(), virtPath);
 			}
+		}
+
+		if (ec)
+		{
+			//print it somewhere
 		}
 	}
 

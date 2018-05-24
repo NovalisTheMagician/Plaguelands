@@ -3,8 +3,6 @@
 
 #include "plague.hpp"
 
-#include <string>
-
 #include <GL\glew.h>
 
 namespace Plague
