@@ -15,8 +15,7 @@ namespace Plague
 		Texture();
 		~Texture();
 
-		bool Load(const std::string &path);
-		bool Load(const char *data, std::size_t size);
+		bool Load(const byte *data, std::size_t size);
 
 		GLuint GetTextureID();
 

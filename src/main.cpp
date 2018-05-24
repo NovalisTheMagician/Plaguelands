@@ -7,13 +7,28 @@
 #include "texture.hpp"
 #include "filesystem.hpp"
 
+#include <vector>
+#include <string>
+#include <Windows.h>
+
+#include <zip.h>
+
 Plague::Texture diffuse;
-Plague::Filesystem filesystem("..\\..\\", false);
+Plague::Filesystem filesystem("..\\..\\", true);
+
+using std::vector;
+using std::string;
 
 void Init()
 {
-	diffuse.Load("");
 	filesystem.AddModDirectory("Assets");
+
+	uint pixels[4] = 
+	{
+		0xFF0000FF, 0x00FF00FF,
+		0x0000FFFF, 0xFFFFFFFF
+	};
+	diffuse.Load(reinterpret_cast<byte*>(&pixels), sizeof pixels);
 }
 
 void Update()

@@ -19,6 +19,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{9299afb8-5de9-4979-92de-225e31b06d33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stb">
+      <UniqueIdentifier>{d60d276c-9339-45d2-8150-9d3948fd7a0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -33,6 +36,9 @@
     <ClCompile Include="..\src\filesystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\stb_vorbis.c">
+      <Filter>stb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\miniz.h">
@@ -46,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="..\src\filesystem.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stb_image.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stb_vorbis.h">
+      <Filter>stb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

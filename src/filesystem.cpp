@@ -22,10 +22,9 @@ namespace Plague
 
 	Filesystem::~Filesystem()
 	{
-		for (mz_zip_archive* archive : zipArchives)
+		for (zip_t* archive : zipArchives)
 		{
-			mz_zip_reader_end(archive);
-			delete archive;
+			zip_close(archive);
 		}
 
 		zipArchives.clear();
@@ -83,10 +82,13 @@ namespace Plague
 	void Filesystem::LoadZip(const string &zipFile, const string &modName)
 	{
 		const char * zipFileName = zipFile.c_str();
-		mz_zip_archive *archive = new mz_zip_archive;
-		mz_bool status = mz_zip_reader_init_file(archive, zipFileName, 0);
-		if (!status)
+
+		int error;
+		zip_t *archive = zip_open(zipFileName, ZIP_RDONLY, &error);
+		if (!archive)
 		{
+			char buf[100];
+			zip_error_to_str(buf, sizeof buf, error, errno);
 			return;
 		}
 
@@ -98,39 +100,48 @@ namespace Plague
 
 		archiveMapping[archiveID] = archive;
 
-		size_t numFiles = mz_zip_reader_get_num_files(archive);
-		for (int i = 0; i < numFiles; ++i)
+		zip_int64_t numFiles = zip_get_num_entries(archive, 0);
+		for (zip_int64_t i = 0; i < numFiles; ++i)
 		{
-			mz_zip_archive_file_stat fileStat;
-			if (!mz_zip_reader_file_stat(archive, i, &fileStat))
+			zip_stat_t fileStat;
+			if (zip_stat_index(archive, i, 0, &fileStat) != 0)
 				continue;
 
-			if (mz_zip_reader_is_file_a_directory(archive, i))
+			string fileName = fileStat.name;
+
+			if (IsDirectory(fileName))
 				continue;
 
-			string fileName = fileStat.m_filename;
 			index[fileName] = archiveID + "/" + fileName;
 		}
 	}
 
-	const char * Filesystem::ReadFile(const string &path, size_t *size)
+	bool Filesystem::IsDirectory(const string &path)
+	{
+		size_t pos = path.find_last_of('/');
+		return pos == path.size() - 1;
+	}
+
+	const byte * Filesystem::ReadFile(const string &path, size_t *size)
 	{
 		string indexPath = index[path];
 		if (indexPath[0] == '@')
 		{
 			string archiveID = indexPath.substr(0, indexPath.find_first_of('/'));
-			mz_zip_archive *archive = archiveMapping[archiveID];
+			zip_t *archive = archiveMapping[archiveID];
 			string fileName = indexPath.substr(indexPath.find_first_of('/'));
-			int index = mz_zip_reader_locate_file(archive, fileName.c_str(), nullptr, 0);
-			if (index >= 0)
-			{
-				mz_zip_archive_file_stat fileStat;
-				mz_zip_reader_file_stat(archive, index, &fileStat);
 
-				size_t fileSize = fileStat.m_uncomp_size;
-				char *buffer = new char[fileSize];
-				mz_bool res = mz_zip_reader_extract_file_to_mem(archive, fileName.c_str(), buffer, fileSize, 0);
-				if (res)
+			zip_int64_t index = zip_name_locate(archive, fileName.c_str(), 0);
+			zip_stat_t fileStat;
+			if (zip_stat_index(archive, index, 0, &fileStat) == 0)
+			{
+				size_t fileSize = static_cast<size_t>(fileStat.size);
+				byte *buffer = new byte[fileSize];
+
+				zip_file_t *zipFile;
+				zipFile = zip_fopen_index(archive, index, 0);
+				zip_int64_t len = zip_fread(zipFile, buffer, fileSize);
+				if (len == fileSize)
 				{
 					*size = fileSize;
 					return buffer;
@@ -142,12 +153,12 @@ namespace Plague
 			fstream file(indexPath, std::ios::in | std::ios::binary | std::ios::ate);
 			if (file.is_open())
 			{
-				size_t fileSize = file.tellg();
-				char *buffer = new char[fileSize];
-				file.read(buffer, fileSize);
+				size_t fileSize = static_cast<size_t>(file.tellg());
+				byte *buffer = new byte[fileSize];
+				file.read(reinterpret_cast<char*>(buffer), fileSize);
 
 				*size = fileSize;
-				return buffer;
+				return nullptr;
 			}
 		}
 

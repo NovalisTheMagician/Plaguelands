@@ -22,12 +22,15 @@
     <ClCompile Include="..\src\filesystem.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\miniz.c" />
+    <ClCompile Include="..\src\stb_vorbis.c" />
     <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\filesystem.hpp" />
     <ClInclude Include="..\src\miniz.h" />
     <ClInclude Include="..\src\plague.hpp" />
+    <ClInclude Include="..\src\stb_image.h" />
+    <ClInclude Include="..\src\stb_vorbis.h" />
     <ClInclude Include="..\src\texture.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -108,14 +111,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\gli\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;..\lib\libzip\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\lib\glew\lib\x86\;..\lib\lua\lib\x86\;..\lib\openal\lib\x86\;..\lib\sdl\lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;zip.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\lib\glew\lib\x86\;..\lib\lua\lib\x86\;..\lib\openal\lib\x86\;..\lib\sdl\lib\x86\;..\lib\libzip\lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -124,14 +127,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\gli\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;..\lib\libzip\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\lib\glew\lib\x64\;..\lib\lua\lib\x64\;..\lib\openal\lib\x64\;..\lib\sdl\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;zip.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\lib\glew\lib\x64\;..\lib\lua\lib\x64\;..\lib\openal\lib\x64\;..\lib\sdl\lib\x64\;..\lib\libzip\lib\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,7 +145,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\gli\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;..\lib\libzip\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -150,8 +153,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\lib\glew\lib\x86\;..\lib\lua\lib\x86\;..\lib\openal\lib\x86\;..\lib\sdl\lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;zip.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\lib\glew\lib\x86\;..\lib\lua\lib\x86\;..\lib\openal\lib\x86\;..\lib\sdl\lib\x86\;..\lib\libzip\lib\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,7 +165,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\gli\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\lib\glew\inc\;..\lib\glm\inc\;..\lib\lua\inc\;..\lib\openal\inc\;..\lib\sdl\inc\;..\lib\libzip\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -170,8 +173,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\lib\glew\lib\x64\;..\lib\lua\lib\x64\;..\lib\openal\lib\x64\;..\lib\sdl\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua5.3.0-static.lib;glew32s.lib;openal32.lib;zip.lib;sdl2.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\lib\glew\lib\x64\;..\lib\lua\lib\x64\;..\lib\openal\lib\x64\;..\lib\sdl\lib\x64\;..\lib\libzip\lib\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
