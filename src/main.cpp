@@ -1,7 +1,7 @@
 #include "plague.hpp"
 
-#define GLEW_STATIC
-#include <GL/glew.h>
+#include "glad/glad.h"
+
 #include <SDL.h>
 
 #include "texture.hpp"
@@ -75,13 +75,14 @@ int main(int argc, char *argv[])
 
 	SDL_GL_MakeCurrent(window, context);
 
-	glewExperimental = true;
-	if (glewInit() != GLEW_OK)
+	if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 	{
 		//hmmm
 	}
 
 	Init();
+
+	glViewport(0, 0, 800, 600);
 
 	bool isRunning = true;
 
