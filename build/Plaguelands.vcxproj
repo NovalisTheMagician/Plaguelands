@@ -22,6 +22,8 @@
     <ClCompile Include="..\src\filesystem.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mesh.cpp" />
+    <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\stb_vorbis.c" />
     <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
@@ -31,6 +33,7 @@
     <ClInclude Include="..\src\mesh.hpp" />
     <ClInclude Include="..\src\model.hpp" />
     <ClInclude Include="..\src\plague.hpp" />
+    <ClInclude Include="..\src\shader.hpp" />
     <ClInclude Include="..\src\stb_image.h" />
     <ClInclude Include="..\src\stb_vorbis.h" />
     <ClInclude Include="..\src\texture.hpp" />
