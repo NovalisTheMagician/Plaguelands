@@ -7,10 +7,16 @@
 #include "texture.hpp"
 #include "filesystem.hpp"
 
+#include "shader.hpp"
+
 #include <Windows.h>
 
 Plague::Texture diffuse;
 Plague::Filesystem filesystem("..\\..\\", true);
+
+Plague::VertexShader testVertexShader;
+Plague::FragmentShader testFragmentShader;
+Plague::ShaderProgram *testShader;
 
 using std::vector;
 using std::string;
@@ -18,6 +24,25 @@ using std::string;
 void Init()
 {
 	filesystem.AddModDirectory("Assets");
+
+	std::size_t size;
+	const byte* vertData = filesystem.ReadFile("shader/testShader.vert", &size);
+	if (vertData != nullptr)
+	{
+		testVertexShader.Load(vertData, size);
+		delete[] vertData;
+	}
+
+	const byte* fragData = filesystem.ReadFile("shader/testShader.frag", &size);
+	if (vertData != nullptr)
+	{
+		testFragmentShader.Load(fragData, size);
+		delete[] fragData;
+	}
+
+	testShader = new Plague::ShaderProgram();
+	testShader->SetShaderStage(testVertexShader);
+	testShader->SetShaderStage(testFragmentShader);
 
 	uint pixels[4] = 
 	{
@@ -35,6 +60,11 @@ void Update()
 void Draw()
 {
 
+}
+
+void Destroy()
+{
+	delete testShader;
 }
 
 int main(int argc, char *argv[])
@@ -129,6 +159,8 @@ int main(int argc, char *argv[])
 
 		SDL_GL_SwapWindow(window);
 	}
+
+	Destroy();
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
