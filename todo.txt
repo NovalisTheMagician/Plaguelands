@@ -1,0 +1,7 @@
+- decide which renderer: opengl 4.5 vs vulkan
+- implement renderer
+   - model loading
+   - shaders
+- implement scripting
+- implement physics
+- implement audio
