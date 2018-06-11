@@ -2,7 +2,6 @@
 #define MESH_HPP_
 
 #include "plague.hpp"
-#include "glad\glad.h"
 
 #include <glm\glm.hpp>
 
@@ -13,6 +12,19 @@ namespace Plague
 		glm::vec3 position;
 		glm::vec3 normal;
 		glm::vec2 texcoord;
+	};
+
+	class VertexFormat
+	{
+	public:
+		VertexFormat();
+		~VertexFormat();
+
+		void Use() const;
+
+	private:
+
+
 	};
 
 	class Mesh

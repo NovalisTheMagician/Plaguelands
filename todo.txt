@@ -1,7 +1,11 @@
-- decide which renderer: opengl 4.5 vs vulkan
-- implement renderer
-   - model loading
+- decide which renderer: opengl 4.5 vs vulkan --> vulkan first (maybe opengl later) CHECK
+- implement renderer --> CURRENT
+   - meshes
    - shaders
+   - textures
+   - models
+   - materials
 - implement scripting
-- implement physics
 - implement audio
+- implement physics
+- implement gameplay (glue everything together and define game rules)

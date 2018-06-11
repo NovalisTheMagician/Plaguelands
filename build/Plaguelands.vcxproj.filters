@@ -19,9 +19,6 @@
     <Filter Include="stb">
       <UniqueIdentifier>{d60d276c-9339-45d2-8150-9d3948fd7a0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="glad">
-      <UniqueIdentifier>{f8248efb-1956-4c39-bd97-b0a6b86403d4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -36,13 +33,13 @@
     <ClCompile Include="..\src\stb_vorbis.c">
       <Filter>stb</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\glad.c">
-      <Filter>glad</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\scriptengine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,9 +59,6 @@
     <ClInclude Include="..\src\stb_vorbis.h">
       <Filter>stb</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\glad\glad.h">
-      <Filter>glad</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\model.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\scriptengine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

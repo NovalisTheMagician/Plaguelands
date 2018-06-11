@@ -4,6 +4,21 @@ namespace Plague
 {
 	using std::vector;
 
+	VertexFormat::VertexFormat()
+	{
+
+	}
+
+	VertexFormat::~VertexFormat()
+	{
+
+	}
+
+	void VertexFormat::Use() const
+	{
+
+	}
+
 	Mesh::Mesh()
 	{
 

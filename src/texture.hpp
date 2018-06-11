@@ -3,8 +3,6 @@
 
 #include "plague.hpp"
 
-#include "glad/glad.h"
-
 namespace Plague
 {
 	class Texture
@@ -15,12 +13,7 @@ namespace Plague
 
 		bool Load(const byte *data, std::size_t size);
 
-		GLuint GetTextureID();
-
-		void Bind(GLenum textureUnit);
-
 	private:
-		GLuint textureID;
 		static uint defaultTexture[4];
 
 	};
