@@ -46,6 +46,6 @@ namespace Plague
 
 	bool Mesh::HasAnimation()
 	{
-
+		return false;
 	}
 }

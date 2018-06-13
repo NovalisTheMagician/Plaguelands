@@ -41,9 +41,6 @@ namespace Plague
 		bool HasAnimation();
 
 	private:
-		GLuint vertexBuffer;
-		GLuint indexBuffer;
-		GLuint vao;
 
 	};
 }

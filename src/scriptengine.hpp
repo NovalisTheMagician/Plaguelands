@@ -1,21 +1,20 @@
 #ifndef SCRIPTENGINE_HPP_
 #define SCRIPTENGINE_HPP_
 
-#include <lua.h>
-
 namespace Plague
 {
+	struct ScriptEngineInfo
+	{
+
+	};
+
 	class ScriptEngine
 	{
 	public:
-		ScriptEngine();
-		~ScriptEngine();
+		virtual ~ScriptEngine() = 0;
 
-		bool Init();
-		void Destroy();
-
-	private:
-		lua_State *luaState;
+		virtual bool Init(const ScriptEngineInfo &info) = 0;
+		virtual void Destroy() = 0;
 
 	};
 }
