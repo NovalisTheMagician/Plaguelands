@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\filesystem.hpp" />
+    <ClInclude Include="..\src\lua_scriptengine.hpp" />
     <ClInclude Include="..\src\mesh.hpp" />
     <ClInclude Include="..\src\model.hpp" />
     <ClInclude Include="..\src\plague.hpp" />

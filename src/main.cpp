@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <SDL_vulkan.h>
 
+#include "sdl_window.hpp"
+
 #include "texture.hpp"
 #include "filesystem.hpp"
 
@@ -15,11 +17,21 @@ Plague::Filesystem filesystem("..\\..\\", true);
 
 Plague::ShaderProgram *testShader;
 
+Plague::SDLWindow window;
+
 using std::vector;
 using std::string;
 
 void Init()
 {
+	Plague::WindowInfo windowInfo;
+	windowInfo.title = "Plaguelands";
+	windowInfo.width = 800;
+	windowInfo.height = 600;
+	windowInfo.type = Plague::WindowType::WINDOW;
+
+	window.Init(windowInfo);
+
 	filesystem.AddModDirectory("Assets");
 
 	std::size_t size;
