@@ -2,11 +2,15 @@
 #define LUA_SCRIPTENGINE_HPP_
 
 #include "plague.hpp"
-#include "scriptengine.hpp"
 
 namespace Plague
 {
-	class LuaScriptEngine : public ScriptEngine
+	struct ScriptEngineInfo
+	{
+		std::string assetBasePath;
+	};
+
+	class LuaScriptEngine
 	{
 	public:
 		LuaScriptEngine();
@@ -15,13 +19,14 @@ namespace Plague
 		bool Init(const ScriptEngineInfo &info);
 		void Destroy();
 
-		bool LoadScript(const std::string &scriptName);
-		void ExecuteScript(const std::string &script);
+		bool LoadScript(const std::string &scriptName) const;
+		void ExecuteString(const std::string &script) const;
 
-		void AddScriptFunction(ScriptFunction func, const std::string funcName);
+		void AddScriptFunction(lua_CFunction func, const std::string funcName) const;
 
 	private:
 		lua_State *luaState;
+		std::string basePath;
 
 	};
 }

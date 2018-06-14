@@ -130,13 +130,13 @@ namespace Plague
 		return pos == path.size() - 1;
 	}
 
-	const byte * Filesystem::ReadFile(const string &path, size_t *size)
+	const byte * Filesystem::ReadFile(const string &path, size_t *size) const
 	{
-		string indexPath = index[path];
+		string indexPath = index.at(path);
 		if (indexPath[0] == '@')
 		{
 			string archiveID = indexPath.substr(0, indexPath.find_first_of('/'));
-			zip_t *archive = archiveMapping[archiveID];
+			zip_t *archive = archiveMapping.at(archiveID);
 			string fileName = indexPath.substr(indexPath.find_first_of('/'));
 
 			zip_int64_t index = zip_name_locate(archive, fileName.c_str(), 0);
@@ -154,6 +154,7 @@ namespace Plague
 					*size = fileSize;
 					return buffer;
 				}
+				zip_fclose(zipFile);
 			}
 		}
 		else
@@ -166,15 +167,9 @@ namespace Plague
 				file.read(reinterpret_cast<char*>(buffer), fileSize);
 
 				*size = fileSize;
-				return nullptr;
+				return buffer;
 			}
 		}
-
 		return nullptr;
-	}
-
-	void Filesystem::DestroyFile(const char* file)
-	{
-		delete[] file;
 	}
 }

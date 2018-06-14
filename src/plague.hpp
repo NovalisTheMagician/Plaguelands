@@ -16,6 +16,7 @@ typedef uint8_t byte;
 
 extern "C" {
 #include <lua.h>
+#include <lualib.h>
 #include <lauxlib.h>
 }
 

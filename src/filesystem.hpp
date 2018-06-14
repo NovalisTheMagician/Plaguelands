@@ -15,8 +15,7 @@ namespace Plague
 
 		void AddModDirectory(const std::string &modName);
 
-		const byte * ReadFile(const std::string &path, size_t *size);
-		void DestroyFile(const char * file);
+		const byte * ReadFile(const std::string &path, size_t *size) const;
 
 	private:
 		void LoadZip(const std::string &zipFile, const std::string &modName);

@@ -23,7 +23,17 @@ namespace Plague
 		virtual void Destroy() = 0;
 
 		virtual bool LoadScript(const std::string &scriptName) = 0;
-		virtual void ExecuteScript(const std::string &script) = 0;
+		virtual void ExecuteString(const std::string &script) = 0;
+
+		virtual bool GetParameter(int *value, int paraIdx) = 0;
+		virtual bool GetParameter(float *value, int paraIdx) = 0;
+		virtual bool GetParameter(std::string *value, int paraIdx) = 0;
+		virtual bool GetParameter(bool *value, int paraIdx) = 0;
+
+		virtual void PushResult(int value) = 0;
+		virtual void PushResult(float value) = 0;
+		virtual void PushResult(std::string value) = 0;
+		virtual void PushResult(bool value) = 0;
 
 		virtual void AddScriptFunction(ScriptFunction func, const std::string funcName) = 0;
 

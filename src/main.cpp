@@ -4,62 +4,32 @@
 #include <SDL_vulkan.h>
 
 #include "sdl_window.hpp"
-
-#include "texture.hpp"
-#include "filesystem.hpp"
-
-#include "shader.hpp"
-
-#include <Windows.h>
-
-Plague::Texture diffuse;
-Plague::Filesystem filesystem("..\\..\\", true);
-
-Plague::ShaderProgram *testShader;
+#include "lua_scriptengine.hpp"
 
 Plague::SDLWindow window;
+Plague::LuaScriptEngine scriptEngine;
 
 using std::vector;
 using std::string;
 
 void Init()
 {
-	Plague::WindowInfo windowInfo;
-	windowInfo.title = "Plaguelands";
-	windowInfo.width = 800;
-	windowInfo.height = 600;
-	windowInfo.type = Plague::WindowType::WINDOW;
-
+	Plague::WindowInfo windowInfo = {
+		"Plaguelands",
+		800, 600,
+		Plague::WindowType::WINDOW
+	};
 	window.Init(windowInfo);
 
-	filesystem.AddModDirectory("Assets");
-
-	std::size_t size;
-	const byte* vertData = filesystem.ReadFile("shader/testShader.vert", &size);
-	if (vertData != nullptr)
-	{
-		delete[] vertData;
-	}
-
-	const byte* fragData = filesystem.ReadFile("shader/testShader.frag", &size);
-	if (vertData != nullptr)
-	{
-		delete[] fragData;
-	}
-
-	testShader = new Plague::ShaderProgram();
-
-	uint pixels[4] = 
-	{
-		0xFF0000FF, 0x00FF00FF,
-		0x0000FFFF, 0xFFFFFFFF
+	Plague::ScriptEngineInfo scriptInfo = {
+		"../../assets/scripts/"
 	};
-	diffuse.Load(reinterpret_cast<byte*>(&pixels), sizeof pixels);
+	scriptEngine.Init(scriptInfo);
 }
 
 void Update()
 {
-
+	window.HandleEvents();
 }
 
 void Draw()
@@ -69,23 +39,16 @@ void Draw()
 
 void Destroy()
 {
-	delete testShader;
+	window.Destroy();
 }
 
 int main(int argc, char *argv[])
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
-	{
-		return -1;
-	}
-
 #ifdef _DEBUG
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE | SDL_GL_CONTEXT_DEBUG_FLAG);
 #else
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 #endif
-
-	SDL_Window *window = SDL_CreateWindow("Plaguelands", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_VULKAN);
 
 	Init();
 
@@ -99,23 +62,6 @@ int main(int argc, char *argv[])
 
 	while (isRunning)
 	{
-		SDL_Event ev;
-		if (SDL_PollEvent(&ev) > 0)
-		{
-			if (ev.type == SDL_QUIT)
-				isRunning = false;
-
-			if (ev.type == SDL_KEYDOWN)
-			{
-				switch (ev.key.keysym.sym)
-				{
-				case SDLK_ESCAPE:
-					isRunning = false;
-					break;
-				}
-			}
-		}
-
 		currentTime = SDL_GetTicks();
 		float delta = (currentTime - pastTime) / 1000.0f;
 		pastTime = currentTime;
@@ -127,16 +73,10 @@ int main(int argc, char *argv[])
 			accum -= targetDelta;
 		}
 
-
-
 		Draw();
 	}
 
 	Destroy();
-
-	SDL_DestroyWindow(window);
-
-	SDL_Quit();
 
 	return 0;
 }
