@@ -5,6 +5,7 @@
 
 #include "sdl_window.hpp"
 #include "lua_scriptengine.hpp"
+#include "vulkan_renderer.hpp"
 
 Plague::SDLWindow window;
 Plague::LuaScriptEngine scriptEngine;
@@ -27,9 +28,9 @@ void Init()
 	scriptEngine.Init(scriptInfo);
 }
 
-void Update()
+bool Update()
 {
-	window.HandleEvents();
+	return window.HandleEvents();
 }
 
 void Draw()
@@ -69,7 +70,8 @@ int main(int argc, char *argv[])
 		accum += delta;
 		while (accum >= targetDelta)
 		{
-			Update();
+			if (!Update())
+				isRunning = false;
 			accum -= targetDelta;
 		}
 
